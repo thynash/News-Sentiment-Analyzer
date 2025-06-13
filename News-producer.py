@@ -10,4 +10,6 @@ def fetch_headlines():
     response = requests.get(URL)
     articles = response.json().get("articles", [])
     return [article["title"] for article in articles if article.get("title")]
+while True:
+    headlines = fetch_headlines()
 

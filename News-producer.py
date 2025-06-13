@@ -12,4 +12,15 @@ def fetch_headlines():
     return [article["title"] for article in articles if article.get("title")]
 while True:
     headlines = fetch_headlines()
+    with open("sentiment_data.json", "a") as f:
+        for headline in headlines:
+            sentiment, score = get_sentiment(headline)
+            data = {
+                "headline": headline,
+                "sentiment": sentiment,
+                "score": score,
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+            f.write(json.dumps(data) + "\n")
+
 
